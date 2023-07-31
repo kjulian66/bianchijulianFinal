@@ -47,7 +47,7 @@ if (isset($_SESSION["idUsuario"]) && $_SESSION["rol"] == 1) {
         <input type="text" name="nombre" required value="<?php echo $registro["nombre"] ?>">
         <input type="text" name="apellido" required value="<?php echo $registro["apellido"] ?>">
         <input type="date" name="fechaNac" required value="<?php echo $registro["fechaNac"] ?>">
-        <input type="number" name="cuota" required value="<?php echo $registro["cuota"] ?>">
+        <input type="number" step="0.01" name="cuota" required value="<?php echo $registro["cuota"] ?>">
         <button id="botonEnviar" type="submit" value="guardarCambios">GUARDAR CAMBIOS</button>
     </form>
 

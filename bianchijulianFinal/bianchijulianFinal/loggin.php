@@ -19,19 +19,23 @@ if (mysqli_affected_rows($conexion) > 0) {
     $_SESSION["nombre"] = $registro["nombre"];
     $_SESSION["rol"] = $registro["rol"];
 
+    $_SESSION["fechaInicio"] = date("d-m-Y H:i:s");
+
     switch ($registro["rol"]) {
       case 1:
         header("location:admin.php");
         break;
       case 2:
-        header("location:empleado.php");
+        header("location:usuario.php");
         break;
       default:
         echo "Se ha producido un error";
     }
   } else {
-    echo "Contraseña incorrecta";
+    header("location:index.php?error=Contraseña incorrecta");
+    exit();
   }
 } else {
-  echo "No existe el usuario " . $usuario;
+  header("location:index.php?error=No existe el usuario $usuario");
+  exit();
 }

@@ -39,7 +39,7 @@ if (isset($_SESSION["idUsuario"]) && $_SESSION["rol"] == 1) {
         <td><input type="date" placeholder="Fecha Nacimiento" name="fechaNac" required></td>
       </tr>
       <tr>
-        <td><input type="number" placeholder="Cuota" name="cuota" minlength="1" maxlength="8" required></td>
+        <td><input type="number" step="0.01" placeholder="Cuota" name="cuota" minlength="1" maxlength="8" required></td>
       </tr>
       <tr>
         <td><button id="botonEnviar" type="submit" name="ENVIAR">ENVIAR</button></td>

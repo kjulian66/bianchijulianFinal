@@ -1,11 +1,13 @@
 <?php
+
 session_start();
-if (isset($_SESSION["idUsuario"]) && $_SESSION["rol"] == 1) {
+if (isset($_SESSION["idUsuario"]) && $_SESSION["rol"] == 2) {
 } else {
   echo "ACCESO DENEGADO!!!";
   echo "<br> <a href='index.php'><button>VOLVER</button></a>";
   exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +17,8 @@ if (isset($_SESSION["idUsuario"]) && $_SESSION["rol"] == 1) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
   <link href="estilo.css" rel="stylesheet">
+  <title>Document</title>
 </head>
 
 <body>
@@ -24,16 +26,15 @@ if (isset($_SESSION["idUsuario"]) && $_SESSION["rol"] == 1) {
     <?php echo "Usuario: " . $_SESSION["nombre"] ?>
     <a href="loggout.php"><button>CERRAR SESION</button></a>
   </div>
-
-  <h1>MOSTRAR</h1>
-
   <?php
-  require "consultaMostrar.php";
+
+  require "consultaBuscar.php";
+  require "conexion.php";
+
   $conexion = conectar();
-  $listar = listarDatos();
+  $resultado = mysqli_query($conexion, $sql);
 
-
-  if (mysqli_num_rows($listar) > 0) {
+  if (mysqli_num_rows($resultado) > 0) {
   ?>
     <form method="POST">
       <table id="tablaListar">
@@ -43,10 +44,10 @@ if (isset($_SESSION["idUsuario"]) && $_SESSION["rol"] == 1) {
           <th>Apellido</th>
           <th>Fecha de Nacimiento</th>
           <th>Cuota</th>
-          <th>Seleccionar</th>
+          <th></th>
         </tr>
         <?php
-        while ($registro = mysqli_fetch_assoc($listar)) {
+        while ($registro = mysqli_fetch_assoc($resultado)) {
         ?>
           <tr>
             <td><?php echo $registro["idAlumno"] ?></td>
@@ -54,16 +55,13 @@ if (isset($_SESSION["idUsuario"]) && $_SESSION["rol"] == 1) {
             <td><?php echo $registro["apellido"] ?></td>
             <td><?php echo $registro["fechaNac"] ?></td>
             <td><?php echo $registro["cuota"] ?></td>
-            <td><input type="radio" name="idAlumno" required value="<?php echo $registro["idAlumno"] ?>"></td>
           </tr>
         <?php
         }
         ?>
       </table>
-      <button id="botonEnviar" type="submit" value="modificar" formaction="modificar.php">MODIFICAR</button>
-      <button id="botonEnviar" type="submit" value="eliminar" formaction="eliminar.php">ELIMINAR</button>
-    </form>
 
+    </form>
   <?php
   } else {
   ?>
@@ -71,13 +69,11 @@ if (isset($_SESSION["idUsuario"]) && $_SESSION["rol"] == 1) {
   <?php
   }
   ?>
+  <br><br><br><br>
 
-  <br><br><br>
 
-  <a href="admin.php">VOLVER</a>
-  <a href="altas.php">ALTAS</a>
+  <a href="usuario.php">VOLVER</a>
+
 </body>
-
-
 
 </html>

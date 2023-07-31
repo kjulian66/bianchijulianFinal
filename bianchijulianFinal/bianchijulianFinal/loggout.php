@@ -14,26 +14,23 @@ session_start();
 
 <body>
     <?php
-
     echo "Hasta pronto " . $_SESSION["nombre"];
 
     $usuario = $_SESSION["usuario"];
     $nombre = $_SESSION["nombre"];
     $idUsuario = $_SESSION["idUsuario"];
-    $fecha = date("d-m-Y");
-    $hora = date("H:i:s");
-    $horaInicio = time();
-
+    $fechaInicio = $_SESSION["fechaInicio"];
+    $fechaCierre = date("d-m-Y H:i:s");
     session_destroy();
 
-    $horaFinal = time();
-    $tiempo = $horaFinal - $horaInicio;
-    $texto = "
 
+    $duracionSesion = (strtotime($fechaCierre) - strtotime($fechaInicio)) / 60;
+
+    $texto = "
     Usuario: $usuario ID: $idUsuario
-    Dia conexion $fecha a las $hora
-    Tiempo: $tiempo
-    
+    Inicio de sesión: $fechaInicio
+    Cierre de sesión: $fechaCierre
+    Duración de sesión: $duracionSesion minutos
     ";
 
     $archivo = fopen("accesos.txt", "a+");
@@ -41,9 +38,8 @@ session_start();
     fclose($archivo);
 
     echo "<br><br>";
-    echo "Sesion cerrada correctamente";
-    echo "<a href='index.php'>Volver a iniciar sesion</a>";
-
+    echo "Sesión cerrada correctamente";
+    echo "<a href='index.php'>Volver a iniciar sesión</a>";
     ?>
 </body>
 

@@ -25,9 +25,9 @@ $archivo = fopen("comentarios.txt", "a+");
 
   if (fwrite($archivo, $texto)) {
     fclose($archivo);
-    header("location: formularioEmpleado.php?msj=enviado");
+    header("location: formularioUsuario.php?msj=enviado");
   } else {
-    header("location: formularioEmpleado.php?msj=noEnviado");
+    header("location: formularioUsuario.php?msj=noEnviado");
   }
 
   ?>

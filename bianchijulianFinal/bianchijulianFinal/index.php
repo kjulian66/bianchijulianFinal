@@ -19,6 +19,12 @@
       <button type="submit" value="Iniciar Sesion">Iniciar Sesion
       </button>
     </form>
+    <?php
+    if (isset($_GET["error"])) {
+      $error = $_GET["error"];
+      echo "<p class='error-message'>$error</p>";
+    }
+    ?>
   </div>
 </body>
 
